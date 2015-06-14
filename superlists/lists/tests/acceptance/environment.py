@@ -15,4 +15,5 @@ def before_scenario(context, _):
 
 # Close browser after testing
 def after_scenario(context, _):
+    context.browser.implicitly_wait(100)
     context.browser.quit()

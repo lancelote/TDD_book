@@ -1,4 +1,4 @@
-Feature: Superlists Web App
+Feature: Lists Web App
   App should provide minimum to-do list interface
 
   Scenario: Simple visit

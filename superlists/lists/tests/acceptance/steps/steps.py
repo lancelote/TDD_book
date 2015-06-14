@@ -20,6 +20,6 @@ def step_impl(context):
 @then('I see a title says "{text}"')
 def step_impl(context, text):
     """
-    Compare captured output to given string
+    Check title text
     """
     assert_in(text, context.browser.title)

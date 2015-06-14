@@ -7,12 +7,22 @@ from paver.easy import sh
 
 
 @task
-def superlists():
-    # Acceptance tests
-    sh('behave superlists/tests/acceptance/features/')
+def unit():
+    """
+    Unit tests
+    """
+    pass
 
 
-@needs('superlists')
+@task
+def accept():
+    """
+    Acceptance tests
+    """
+    sh('behave superlists/lists/tests/acceptance/features/')
+
+
+@needs('unit', 'accept')
 @task
 def default():
     pass
