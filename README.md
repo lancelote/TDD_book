@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/lancelote/TDD_book.svg)](https://travis-ci.org/lancelote/TDD_book)
+
 TDD_book
 ========
 
