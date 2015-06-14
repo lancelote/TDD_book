@@ -57,5 +57,5 @@ target/
 # PyCharm
 .idea/
 
-# database
+# Database
 db.sqlite3
