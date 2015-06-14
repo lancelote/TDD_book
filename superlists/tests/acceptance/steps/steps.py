@@ -6,7 +6,7 @@ Acceptance tests
 """
 
 from behave import when, then
-from selenium import webdriver
+from nose.tools import assert_in
 
 
 @when('I open an index page')
@@ -14,7 +14,6 @@ def step_impl(context):
     """
     Get index page
     """
-    context.browser = webdriver.Firefox()
     context.browser.get('http://localhost:8000')
 
 
@@ -23,12 +22,4 @@ def step_impl(context, text):
     """
     Compare captured output to given string
     """
-    assert 'Django' in context.browser.title
-
-
-@then('I close an index page')
-def step_impl(context):
-    """
-    Close browser
-    """
-    context.browser.quit()
+    assert_in(text, context.browser.title)

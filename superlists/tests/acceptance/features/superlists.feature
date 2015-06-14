@@ -16,4 +16,3 @@ Feature: Superlists Web App
 #    And There is a explanatory text about it
 #    When I visit this url
 #    Then I see my To-Do list
-    Then I close an index page
