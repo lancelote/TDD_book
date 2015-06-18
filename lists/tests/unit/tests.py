@@ -6,12 +6,13 @@
 Unit tests
 """
 
-# from django.core.urlresolvers import resolve
+from django.core.urlresolvers import resolve
 from django.test import TestCase
-# from lists.views import homepage
+from lists.views import homepage
 
 
-class SmokeTest(TestCase):
+class HomePageTest(TestCase):
 
-    def test_bad_math(self):
-        self.assertEqual(1 + 1, 2)
+    def test_root_url_resolves_to_home_page_view(self):
+        found = resolve('/')
+        self.assertEqual(found.func, homepage)
