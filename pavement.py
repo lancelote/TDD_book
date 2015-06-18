@@ -11,7 +11,7 @@ def unit():
     """
     Unit tests
     """
-    pass
+    sh('python superlists/manage.py test lists.tests.unit.tests')
 
 
 @task
