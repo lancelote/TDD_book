@@ -11,7 +11,7 @@ def unit():
     """
     Unit tests
     """
-    sh('python superlists/manage.py test lists.tests.unit.tests')
+    sh('python manage.py test lists.tests.unit.tests')
 
 
 @task
@@ -19,7 +19,7 @@ def accept():
     """
     Acceptance tests
     """
-    sh('behave superlists/lists/tests/acceptance/features/')
+    sh('behave lists/tests/acceptance/features/')
 
 
 @task
@@ -27,7 +27,7 @@ def style():
     """
     Style validation
     """
-    sh('pylint superlists/')
+    sh('pylint lists/ superlists/')
 
 
 @needs('unit', 'accept', 'style')

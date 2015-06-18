@@ -6,10 +6,12 @@
 Unit tests
 """
 
+# from django.core.urlresolvers import resolve
 from django.test import TestCase
+# from lists.views import homepage
 
 
 class SmokeTest(TestCase):
 
     def test_bad_math(self):
-        self.assertEqual(1 + 1, 3)
+        self.assertEqual(1 + 1, 2)
