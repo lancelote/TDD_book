@@ -22,7 +22,15 @@ def accept():
     sh('behave superlists/lists/tests/acceptance/features/')
 
 
-@needs('unit', 'accept')
+@task
+def style():
+    """
+    Style validation
+    """
+    sh('pylint superlists/')
+
+
+@needs('unit', 'accept', 'style')
 @task
 def default():
     pass

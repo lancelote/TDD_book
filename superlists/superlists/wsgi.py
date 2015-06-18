@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 """
 WSGI config for superlists project.
 

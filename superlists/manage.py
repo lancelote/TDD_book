@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+
+"""
+Project management tool
+"""
+
 import os
 import sys
 
