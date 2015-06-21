@@ -2,12 +2,11 @@
 App views
 """
 
-# from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def homepage(request):
     """
     Returns homepage
     """
-    return HttpResponse(b'<html><title>To-Do lists</title></html>')
+    return render(request, 'lists/home.html')
