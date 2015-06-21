@@ -8,8 +8,7 @@ Acceptance tests
 from behave import when, then
 from nose.tools import (
     assert_in,
-    assert_equal,
-    assert_true
+    assert_equal
 )
 from selenium.webdriver.common.keys import Keys
 
@@ -74,7 +73,4 @@ def step_impl(context, text):
     """
     table = context.browser.find_element_by_id('id_list_table')
     rows = table.find_elements_by_tag_name('tr')
-    assert_true(
-        any(row.text == text for row in rows),
-        "New To-Do item did not appear in the table"
-    )
+    assert_in(text, [row.text for row in rows])

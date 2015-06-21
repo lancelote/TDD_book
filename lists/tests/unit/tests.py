@@ -18,10 +18,27 @@ class HomePageTest(TestCase):
 
     def test_root_url_resolves_to_home_page_view(self):
         found = resolve('/')
+
         self.assertEqual(found.func, homepage)
 
     def test_homepage_returns_correct_html(self):
         request = HttpRequest()
         response = homepage(request)
-        expected_html = render_to_string('home.html')
+        expected_html = render_to_string('lists/home.html')
+
+        self.assertEqual(response.content.decode(), expected_html)
+
+    def test_homepage_can_save_a_post_request(self):
+        text = 'A new list item'
+        request = HttpRequest()
+        request.method = 'POST'
+        request.POST['item_text'] = text
+
+        response = homepage(request)
+
+        self.assertIn(text, response.content.decode())
+        expected_html = render_to_string(
+            'lists/home.html',
+            {'new_item_text': 'A new list item'}
+        )
         self.assertEqual(response.content.decode(), expected_html)
