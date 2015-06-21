@@ -35,7 +35,7 @@ def step_impl(context, text):
     """
     Check page header
     """
-    header_text = context.browser.find_element_by_id('h1').text
+    header_text = context.browser.find_element_by_tag_name('h1').text
     assert_in(text, header_text)
 
 
@@ -75,5 +75,6 @@ def step_impl(context, text):
     table = context.browser.find_element_by_id('id_list_table')
     rows = table.find_elements_by_tag_name('tr')
     assert_true(
-        any(row.text == text for row in rows)
+        any(row.text == text for row in rows),
+        "New To-Do item did not appear in the table"
     )
