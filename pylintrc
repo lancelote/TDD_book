@@ -1,5 +1,13 @@
+[TYPECHECK]
+# Generates objects members for classes to avoid corresponding error
+generated-members=objects
+
+[MASTER]
+# Ignores database migration files
+ignore=migrations
+
 [MESSAGES CONTROL]
-# Ignore warnings about locally disables errors and ignoring entire files
+# Ignores warnings about locally disables errors and ignoring entire files
 disable=I0011, I0013
 
 [REPORTS]

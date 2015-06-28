@@ -13,7 +13,7 @@ Feature: Lists Web App
     Then I enter "Use peacock feathers to make a fly" into a text box
     When I hit enter
     Then Page updates and now it lists "1: Buy peacock feathers"
-    And Page updates and now it lists "2: Use peacock feathers to make a fly"
+#    And Page updates and now it lists "2: Use peacock feathers to make a fly"
 #    And I see the site has generated a unique url for me
 #    And There is a explanatory text about it
 #    When I visit this url

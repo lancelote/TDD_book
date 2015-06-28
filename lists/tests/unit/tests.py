@@ -29,20 +29,34 @@ class HomePageTest(TestCase):
 
         self.assertEqual(response.content.decode(), expected_html)
 
+    def test_homepage_does_not_save_blank_items(self):
+        request = HttpRequest()
+        homepage(request)
+        self.assertEqual(Item.objects.count(), 0)
+
     def test_homepage_can_save_a_post_request(self):
-        text = 'A new list item'
         request = HttpRequest()
         request.method = 'POST'
-        request.POST['item_text'] = text
+        request.POST['item_text'] = 'A new list item'
 
         response = homepage(request)
 
-        self.assertIn(text, response.content.decode())
-        expected_html = render_to_string(
-            'lists/home.html',
-            {'new_item_text': 'A new list item'}
-        )
-        self.assertEqual(response.content.decode(), expected_html)
+        self.assertEqual(Item.objects.count(), 1)
+        new_item = Item.objects.first()
+        self.assertEqual(new_item.text, 'A new list item')
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/')
+
+    def test_homepage_displays_all_list_items(self):
+        Item.objects.create(text='Item 1')
+        Item.objects.create(text='Item 2')
+
+        request = HttpRequest()
+        response = homepage(request)
+
+        self.assertIn('Item 1', response.content.decode())
+        self.assertIn('Item 2', response.content.decode())
 
 
 class ItemModelTest(TestCase):
