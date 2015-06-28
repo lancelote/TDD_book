@@ -1,3 +1,4 @@
+[![Requirements Status](https://requires.io/github/lancelote/tdd_book/requirements.svg?branch=master)](https://requires.io/github/lancelote/tdd_book/requirements.svg?branch=master)
 [![Build Status](https://travis-ci.org/lancelote/TDD_book.svg)](https://travis-ci.org/lancelote/TDD_book)
 
 # TDD_book
