@@ -3,8 +3,8 @@ Feature: Lists Web App
 
   Scenario: Simple visit
     When I open an index page
-    Then I see a title says "To-Do"
-    And I see header mention "To-Do" lists
+#    Then I see a title says "To-Do"
+    Then I see header mention "To-Do" lists
     And I am invited to enter a To-Do item
     Then I enter "Buy peacock feathers" into a text box
     When I hit enter
