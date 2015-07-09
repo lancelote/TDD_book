@@ -19,7 +19,7 @@ def accept():
     """
     Acceptance tests
     """
-    sh('python functional_tests.py')
+    sh('python manage.py test functional_tests')
 
 
 @task
