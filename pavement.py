@@ -11,7 +11,7 @@ def unit():
     """
     Unit tests
     """
-    sh('python manage.py test')
+    sh('python manage.py test lists')
 
 
 @task
