@@ -11,7 +11,7 @@ def unit():
     """
     Unit tests
     """
-    sh('python manage.py test lists.tests.unit.tests')
+    sh('python manage.py test')
 
 
 @task
@@ -19,7 +19,7 @@ def accept():
     """
     Acceptance tests
     """
-    sh('behave lists/tests/acceptance/features/')
+    sh('python functional_tests.py')
 
 
 @task

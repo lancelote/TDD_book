@@ -5,11 +5,6 @@
 
 Code for "Test-Driven Development with Python" book by Harry J.W. Percival
 
-## About
-
-I used a lot of different tools (behave for example) and approaches than the 
-author did, so be aware if you come here to find some basic "How-To" examples.
-
 ## Testing
 
 Do not forget:
