@@ -4,7 +4,7 @@ App views
 
 from django.shortcuts import redirect, render
 
-from .models import Item
+from .models import Item, List
 
 
 def homepage(request):
@@ -26,5 +26,6 @@ def new_list(request):
     """
     Adds new list
     """
-    Item.objects.create(text=request.POST['item_text'])
+    lst = List.objects.create()
+    Item.objects.create(text=request.POST['item_text'], list=lst)
     return redirect('/lists/the-only-list-in-the-world/')
