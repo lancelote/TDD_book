@@ -61,18 +61,24 @@ class ListAndItemModelTest(TestCase):
 class ListViewTest(TestCase):
 
     def test_uses_list_template(self):
-        response = self.client.get('/lists/the-only-list-in-the-world/')
+        lst = List.objects.create()
+        response = self.client.get('/lists/{0}/'.format(lst.id))
         self.assertTemplateUsed(response, 'list.html')
 
-    def test_displays_all_items(self):
-        lst = List.objects.create()
-        Item.objects.create(text='Item 1', list=lst)
-        Item.objects.create(text='Item 2', list=lst)
+    def test_displays_only_items_for_that_list(self):
+        correct_list = List.objects.create()
+        Item.objects.create(text='Item 1', list=correct_list)
+        Item.objects.create(text='Item 2', list=correct_list)
+        another_list = List.objects.create()
+        Item.objects.create(test='Another Item 1', list=another_list)
+        Item.objects.create(test='Another Item 2', list=another_list)
 
-        response = self.client.get('/lists/the-only-list-in-the-world/')
+        response = self.client.get('/lists/{0}/'.format(correct_list.id))
 
         self.assertContains(response, 'Item 1')
         self.assertContains(response, 'Item 2')
+        self.assertNotContains(response, 'Another Item 1')
+        self.assertNotContains(response, 'Another Item 2')
 
 
 class NewListTest(TestCase):

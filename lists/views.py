@@ -14,7 +14,7 @@ def homepage(request):
     return render(request, 'home.html')
 
 
-def view_list(request):
+def view_list(request, list_id):
     """
     Returns list of To-Do items
     """
