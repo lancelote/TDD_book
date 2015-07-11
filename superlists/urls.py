@@ -4,6 +4,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'', include('lists.urls', namespace='lists')),
+    url(r'^$', 'lists.views.homepage', name='home'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^lists/', include('lists.urls', namespace='lists')),
 ]
