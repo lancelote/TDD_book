@@ -22,6 +22,24 @@ class NewVisitorTest(LiveServerTestCase):
         # Edith has heard about a cool new online to-do app. She goes
         # to check out its homepage
         self.browser.get(self.live_server_url)
+        self.browser.set_window_size(1024, 768)
+
+        # She noticed the input box is nicely centered
+        input_box = self.browser.find_element_by_id('id_new_item')
+        self.assertAlmostEqual(
+            input_box.location['x'] + input_box.size['width']/2,
+            512,
+            delta=5
+        )
+
+        # She started a new list and sees the input is nicely centered too
+        input_box.send_keys('testing\n')
+        input_box = self.browser.find_element_by_id('id_new_item')
+        self.assertAlmostEqual(
+            input_box.location['x'] + input_box.size['width']/2,
+            512,
+            delta=5
+        )
 
         # She notices the page title and header mention to-do lists
         self.assertIn('To-Do', self.browser.title)
