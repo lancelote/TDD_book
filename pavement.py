@@ -3,7 +3,7 @@ Paver tasks
 """
 
 from paver.tasks import consume_args, task, needs
-from paver.easy import sh
+from paver.easy import call_task, sh
 
 
 @task
@@ -31,7 +31,8 @@ def style():
     sh('pylint lists/ superlists/')
 
 
-@needs('unit', 'accept', 'style')
 @task
 def default():
-    pass
+    call_task('unit')
+    call_task('accept', args=[''])
+    call_task('style')
