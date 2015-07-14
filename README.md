@@ -12,22 +12,27 @@ Do not forget:
 pip install -r requirements.txt
 ```
 
-Unit tests:
+### Unit testing
 ```bash
 paver unit
 ```
 
-Acceptance tests:
+### Acceptance testing
 ```bash
 paver accept
 ```
 
-Style validation (PEP8):
+Liveserver:
+```bash
+paver accept --liveserver=example.com
+```
+
+### Style validation (PEP8)
 ```bash
 paver style
 ```
 
-Everything:
+### Everything
 ```bash
 paver
 ```
