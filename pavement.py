@@ -28,7 +28,9 @@ def style():
     """
     Style validation
     """
-    sh('pylint lists/ superlists/')
+    # ToDo : add deploy folder
+    # ToDo : add test coverage
+    sh('pylint lists/ superlists/ functional_tests/')
 
 
 @task

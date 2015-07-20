@@ -1,1 +1,3 @@
-__author__ = 'pavel'
+"""
+Application functional tests
+"""
