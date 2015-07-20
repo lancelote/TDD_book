@@ -20,7 +20,17 @@ def view_list(request, list_id):
     Returns list of To-Do items
     """
     lst = List.objects.get(id=list_id)
-    return render(request, 'list.html', {'list': lst})
+    error = None
+
+    if request.method == 'POST':
+        try:
+            item = Item(text=request.POST['item_text'], list=lst)
+            item.full_clean()
+            item.save()
+            return redirect('/lists/{0}/'.format(lst.id))
+        except ValidationError:
+            error = 'You cannot have an empty list item!'
+    return render(request, 'list.html', {'list': lst, 'error': error})
 
 
 def new_list(request):
@@ -36,13 +46,4 @@ def new_list(request):
         lst.delete()
         error = 'You cannot have an empty list item!'
         return render(request, 'home.html', {'error': error})
-    return redirect('/lists/{0}/'.format(lst.id))
-
-
-def add_item(request, list_id):
-    """
-    Adds new item to a existing list
-    """
-    lst = List.objects.get(id=list_id)
-    Item.objects.create(text=request.POST['item_text'], list=lst)
     return redirect('/lists/{0}/'.format(lst.id))
