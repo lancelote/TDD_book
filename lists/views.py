@@ -2,6 +2,7 @@
 App views
 """
 
+from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
 
 from .models import Item, List
@@ -27,7 +28,14 @@ def new_list(request):
     Adds new list
     """
     lst = List.objects.create()
-    Item.objects.create(text=request.POST['item_text'], list=lst)
+    item = Item(text=request.POST['item_text'], list=lst)
+    try:
+        item.full_clean()
+        item.save()
+    except ValidationError:
+        lst.delete()
+        error = 'You cannot have an empty list item!'
+        return render(request, 'home.html', {'error': error})
     return redirect('/lists/{0}/'.format(lst.id))
 
 
