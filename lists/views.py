@@ -5,14 +5,15 @@ App views
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
 
-from .models import Item, List
+from lists.forms import ItemForm
+from lists.models import Item, List
 
 
 def homepage(request):
     """
     Returns homepage
     """
-    return render(request, 'home.html')
+    return render(request, 'home.html', {'form': ItemForm()})
 
 
 def view_list(request, list_id):
