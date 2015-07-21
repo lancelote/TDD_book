@@ -1,6 +1,10 @@
 # pylint: disable=too-many-instance-attributes, invalid-name, no-member
 # pylint: disable=missing-docstring
 
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.ui import WebDriverWait
+
 from .base import FunctionalTest
 
 
@@ -14,7 +18,12 @@ class ItemValidationTest(FunctionalTest):
 
         # The home page refreshes and there is an error message saying
         # that list items cannot be blank
-        error = self.browser.find_element_by_css_selector('.has-error')
+        error = WebDriverWait(self.browser, 5).until(
+            expected_conditions.presence_of_element_located(
+                (By.CSS_SELECTOR, '.has-error')
+            )
+        )
+        # error = self.browser.find_element_by_css_selector('.has-error')
         self.assertEqual(error.text, 'You cannot have an empty list item!')
 
         # She tries again with some text for the item which now works
@@ -26,7 +35,11 @@ class ItemValidationTest(FunctionalTest):
 
         # She receives a similar warning on the list page
         self.check_for_row_in_list_table('1: Buy milk')
-        error = self.browser.find_element_by_css_selector('.has-error')
+        error = WebDriverWait(self.browser, 5).until(
+            expected_conditions.presence_of_element_located(
+                (By.CSS_SELECTOR, '.has-error')
+            )
+        )
         self.assertEqual(error.text, 'You cannot have an empty list item!')
 
         # And she can corrects it by filling soe text in
