@@ -1,7 +1,10 @@
+# pylint: disable=no-member
+
 """
 App models
 """
 
+from django.core.urlresolvers import reverse
 from django.db import models
 
 
@@ -9,7 +12,12 @@ class List(models.Model):
     """
     List of To-Do items
     """
-    pass
+
+    def get_absolute_url(self):
+        """
+        Redirect to specific view
+        """
+        return reverse('lists:view_list', args=[self.id])
 
 
 class Item(models.Model):
