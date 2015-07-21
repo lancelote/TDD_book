@@ -8,8 +8,8 @@ Code for "Test-Driven Development with Python" book by Harry J.W. Percival
 ## ToDo List
 
 - [ ] Remove hardcoded URLs from views.py
-- [ ] Remove hardcoded URLs from forms in list.html and home.html
 - [ ] Remove duplication of validation logic in views
+- [x] Remove hardcoded URLs from forms in list.html and home.html
 
 ## Testing
 
