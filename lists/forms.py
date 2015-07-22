@@ -1,4 +1,4 @@
-# pylint: disable=too-few-public-methods
+# pylint: disable=too-few-public-methods,signature-differs
 
 """
 App forms
@@ -15,6 +15,10 @@ class ItemForm(forms.models.ModelForm):
     """
     To-Do item form
     """
+
+    def save(self, for_list):
+        self.instance.list = for_list
+        return super().save()
 
     class Meta:
         """
