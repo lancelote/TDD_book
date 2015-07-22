@@ -5,7 +5,7 @@ App views
 from django.shortcuts import redirect, render
 
 from lists.forms import ItemForm
-from lists.models import Item, List
+from lists.models import List
 
 
 def homepage(request):
