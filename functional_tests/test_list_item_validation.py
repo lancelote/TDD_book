@@ -18,10 +18,8 @@ class ItemValidationTest(FunctionalTest):
 
         # The home page refreshes and there is an error message saying
         # that list items cannot be blank
-        error = WebDriverWait(self.browser, 5).until(
-            expected_conditions.presence_of_element_located(
-                (By.CSS_SELECTOR, '.has-error')
-            )
+        error = self.find_element_by_css_selector_with_delay(
+            self.browser, '.has-error'
         )
         # error = self.browser.find_element_by_css_selector('.has-error')
         self.assertEqual(error.text, 'You cannot have an empty list item!')
@@ -35,10 +33,8 @@ class ItemValidationTest(FunctionalTest):
 
         # She receives a similar warning on the list page
         self.check_for_row_in_list_table('1: Buy milk')
-        error = WebDriverWait(self.browser, 5).until(
-            expected_conditions.presence_of_element_located(
-                (By.CSS_SELECTOR, '.has-error')
-            )
+        error = self.find_element_by_css_selector_with_delay(
+            self.browser, '.has-error'
         )
         self.assertEqual(error.text, 'You cannot have an empty list item!')
 

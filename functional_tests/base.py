@@ -6,6 +6,9 @@ import sys
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 class FunctionalTest(StaticLiveServerTestCase):
@@ -38,3 +41,17 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def get_item_input_box(self):
         return self.browser.find_element_by_id('id_text')
+
+    def find_element_by_css_selector_with_delay(self, driver, selector, delay=5):
+        """
+        Simple built-in method breaks travis build
+
+        :param driver: browser driver
+        :param selector: string (ex. .has-error)
+        :param delay: int (delay duration)
+        """
+        return WebDriverWait(driver, delay).until(
+            expected_conditions.presence_of_element_located(
+                (By.CSS_SELECTOR, selector)
+            )
+        )
