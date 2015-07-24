@@ -1,9 +1,5 @@
-# pylint: disable=too-many-instance-attributes, invalid-name, no-member
+# pylint: disable=too-many-instance-attributes, invalid-name
 # pylint: disable=missing-docstring
-
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.ui import WebDriverWait
 
 from .base import FunctionalTest
 
@@ -42,3 +38,19 @@ class ItemValidationTest(FunctionalTest):
         self.get_item_input_box().send_keys('Make tea\n')
         self.check_for_row_in_list_table('1: Buy milk')
         self.check_for_row_in_list_table('2: Make tea')
+
+    def test_cannot_add_duplicate_items(self):
+        # Edith goes to the homepage and starts a new list
+        self.browser.get(self.server_url)
+        self.get_item_input_box().send_keys('Buy wellies\n')
+        self.check_for_row_in_list_table('1: Buy wellies')
+
+        # She accidentally tries to enter a duplicate item
+        self.get_item_input_box().send_keys('Buy wellies\n')
+
+        # She sees a helpful error message
+    #     self.check_for_row_in_list_table('1: Buy wellies')
+    #     error = self.find_element_by_css_selector_with_delay(
+    #         self.browser, '.has-error'
+    #     )
+    #     self.assertEqual(error.text, 'You have already got this in your list!')

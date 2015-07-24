@@ -1,6 +1,6 @@
 # Turn off (too-many-instance-attributes), (invalid-name),
-# (missing-docstring) and (no-member) pylint errors:
-# pylint: disable=R0902,C0103,C0111,E1101
+# (missing-docstring) pylint errors:
+# pylint: disable=R0902,C0103,C0111, no-member
 
 """
 Views unit tests

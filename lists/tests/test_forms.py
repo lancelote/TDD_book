@@ -1,4 +1,4 @@
-# pylint: disable=too-many-instance-attributes, invalid-name, no-member
+# pylint: disable=too-many-instance-attributes, invalid-name
 # pylint: disable=missing-docstring
 
 from django.test import TestCase

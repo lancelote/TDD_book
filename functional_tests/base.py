@@ -1,4 +1,4 @@
-# pylint: disable=too-many-instance-attributes, invalid-name, no-member
+# pylint: disable=too-many-instance-attributes, invalid-name
 # pylint: disable=missing-docstring
 
 import sys
@@ -42,7 +42,8 @@ class FunctionalTest(StaticLiveServerTestCase):
     def get_item_input_box(self):
         return self.browser.find_element_by_id('id_text')
 
-    def find_element_by_css_selector_with_delay(self, driver, selector, delay=5):
+    @staticmethod
+    def find_element_by_css_selector_with_delay(driver, selector, delay=5):
         """
         Simple built-in method breaks travis build
 
