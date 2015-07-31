@@ -7,6 +7,7 @@ Code for "Test-Driven Development with Python" book by Harry J.W. Percival
 
 ## ToDo List
 
+- [ ] Hide error after user click inside field
 - [ ] JavaScript style validation
 - [ ] HTML style validation
 - [ ] JavaScript tests automation
