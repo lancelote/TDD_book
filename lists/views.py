@@ -4,7 +4,7 @@ App views
 
 from django.shortcuts import redirect, render
 
-from lists.forms import ItemForm
+from lists.forms import ExistingListItemForm, ItemForm
 from lists.models import List
 
 
@@ -20,11 +20,11 @@ def view_list(request, list_id):
     Returns list of To-Do items
     """
     lst = List.objects.get(id=list_id)
-    form = ItemForm()
+    form = ExistingListItemForm(for_list=lst)
     if request.method == 'POST':
-        form = ItemForm(data=request.POST)
+        form = ExistingListItemForm(for_list=lst, data=request.POST)
         if form.is_valid():
-            form.save(for_list=lst)
+            form.save()
             return redirect(lst)
     return render(request, 'list.html', {'list': lst, 'form': form})
 

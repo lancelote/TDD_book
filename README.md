@@ -7,6 +7,9 @@ Code for "Test-Driven Development with Python" book by Harry J.W. Percival
 
 ## ToDo List
 
+- [ ] JavaScript style validation
+- [ ] HTML style validation
+- [ ] JavaScript tests automation
 - [x] Remove duplication of validation logic in views
 - [x] Remove hardcoded URLs from views.py
 - [x] Remove hardcoded URLs from forms in list.html and home.html

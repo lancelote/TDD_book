@@ -5,10 +5,12 @@ App forms
 """
 
 from django import forms
+from django.core.exceptions import ValidationError
 
 from lists.models import Item
 
-EMPTY_LIST_ERROR = 'You cannot have an empty list item!'
+DUPLICATE_ITEM_ERROR = 'You have already got this in your list!'
+EMPTY_ITEM_ERROR = 'You cannot have an empty list item!'
 
 
 class ItemForm(forms.models.ModelForm):
@@ -16,17 +18,13 @@ class ItemForm(forms.models.ModelForm):
     To-Do item form
     """
 
-    def save(self, for_list):
-        self.instance.list = for_list
-        return super().save()
-
     class Meta:
         """
         From parameters
         """
         model = Item
         error_messages = {
-            'text': {'required': EMPTY_LIST_ERROR}
+            'text': {'required': EMPTY_ITEM_ERROR}
         }
         fields = ('text',)
         widgets = {
@@ -35,3 +33,27 @@ class ItemForm(forms.models.ModelForm):
                 'class': 'form-control input-lg',
             }),
         }
+
+    def save(self, for_list=None):
+        self.instance.list = for_list
+        return super().save()
+
+
+class ExistingListItemForm(ItemForm):
+    """
+    To-Do item form for an existing list
+    """
+
+    def __init__(self, for_list, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.instance.list = for_list
+
+    def validate_unique(self):
+        try:
+            self.instance.validate_unique()
+        except ValidationError as error:
+            error.error_dict = {'text': [DUPLICATE_ITEM_ERROR]}
+            self._update_errors(error)
+
+    def save(self, for_list=None):
+        return forms.models.ModelForm.save(self)
