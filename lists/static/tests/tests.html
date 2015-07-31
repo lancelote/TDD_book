@@ -21,12 +21,33 @@
     <script>
         /* global $, test, equal */
 
-        test("Errors should be hiden on keypress", function () {
-            $('input').trigger('keypress');
+        function setupModule() {
+            var input = $('input');
+
+            // Hide error on input click
+            input.click(function () {
+                $('.has-error').hide();
+            });
+
+            // Hide error on keypress
+            input.on('keypress', function () {
+                $('.has-error').hide();
+            });
+        }
+
+        module('tests', {setup:setupModule});
+
+        test("Errors should be hidden on keypress", function () {
+            $('input[name="text"]').trigger('keypress');
             equal($('.has-error').is(':visible'), false);
         });
 
-        test("Errors not be hidden unless there is a keypress", function () {
+        test("Errors should be hidden on click", function () {
+            $('input[name="text"]').click();
+            equal($('.has-error').is(':visible'), false);
+        });
+
+        test("Errors not be hidden unless needed", function () {
             equal($('.has-error').is(':visible'), true);
         });
     </script>
