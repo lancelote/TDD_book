@@ -2,6 +2,7 @@
 # pylint: disable=missing-docstring
 
 import sys
+import time
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
@@ -56,3 +57,25 @@ class FunctionalTest(StaticLiveServerTestCase):
                 (By.CSS_SELECTOR, selector)
             )
         )
+
+    @staticmethod
+    def wait_for_element_with_id(driver, element_id, delay=30):
+        WebDriverWait(driver, delay).until(
+            expected_conditions.presence_of_element_located(
+                (By.ID, element_id)
+            )
+        )
+
+    def switch_to_new_window(self, driver, text_in_title):
+        """
+        Switch browser window
+        """
+        retries = 60
+        while retries:
+            for handle in driver.window_handles:
+                driver.switch_to_window(handle)
+                if text_in_title in driver.title:
+                    return
+            retries -= 1
+            time.sleep(0.5)
+        self.fail('Could not find window!')

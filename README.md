@@ -7,6 +7,7 @@ Code for "Test-Driven Development with Python" book by Harry J.W. Percival
 
 ## ToDo List
 
+- [ ] Check native test runners
 - [ ] Staging version
 - [ ] Refactor Qunit test code
 - [ ] JavaScript style validation
