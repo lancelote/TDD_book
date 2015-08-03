@@ -11,6 +11,10 @@
 </head>
 <body>
     <div class="container">
+        <nav class="navbar navbar-default" role="navigation">
+            <a class="navbar-brand" href="/">Superlists</a>
+            <a class="btn navbar-btn navbar-right" id="id_login" href="#">Sign in</a>
+        </nav>
         <div class="row">
             <div class="col-md-6 col-md-offset-3 jumbotron">
                 <div class="text-center">
@@ -35,6 +39,14 @@
         </div>
     </div>
     <script src="{% static "js/jquery.js" %}"></script>
-    <script src="{% static "js/list.js" %}"></script>
+    <script src="{% static "list.js" %}"></script>
+    <script src="{% static "accounts.js" %}"></script>
+    <script>
+        /* global $, Superlists, navigator */
+
+        $(document).ready(function () {
+            Superlists.Accounts.initialize(navigator);
+        });
+    </script>
 </body>
 </html>
