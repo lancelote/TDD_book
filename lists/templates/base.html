@@ -39,13 +39,20 @@
         </div>
     </div>
     <script src="{% static "js/jquery.js" %}"></script>
+    <script src="{% static "js/persona.js" %}"></script>
     <script src="{% static "list.js" %}"></script>
     <script src="{% static "accounts.js" %}"></script>
     <script>
         /* global $, Superlists, navigator */
 
         $(document).ready(function () {
-            Superlists.Accounts.initialize(navigator);
+            var user = "{{ user.email }}" || null;
+            var token = "{{ csrf_token }}";
+            var urls = {
+                login: "ToDo",
+                logout: "ToDo"
+            };
+            Superlists.Accounts.initialize(navigator, user, token, urls);
         });
     </script>
 </body>

@@ -30,7 +30,7 @@ def style():
     """
     # ToDo : add deploy folder
     # ToDo : add test coverage
-    sh('pylint lists/ superlists/ functional_tests/')
+    sh('pylint lists/ superlists/ accounts/ functional_tests/')
 
 
 @task

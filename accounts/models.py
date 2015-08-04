@@ -1,3 +1,7 @@
-from django.db import models
+"""
+Accounts models
+"""
+
+# from django.db import models
 
 # Create your models here.
