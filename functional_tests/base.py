@@ -63,6 +63,9 @@ class FunctionalTest(StaticLiveServerTestCase):
         WebDriverWait(driver, delay).until(
             expected_conditions.presence_of_element_located(
                 (By.ID, element_id)
+            ),
+            'Could not find element with id %s. Page text was %s' % (
+                element_id, driver.find_element_by_tag_name('body').text,
             )
         )
 

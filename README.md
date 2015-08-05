@@ -5,6 +5,10 @@
 
 Code for "Test-Driven Development with Python" book by Harry J.W. Percival
 
+I've done a lot of "personal preference" tweaks so be aware to use my code 
+for references, but feel free to [contact me](mailto:karateev.pavel@ya.ru) 
+instead.
+
 ## ToDo List
 
 - [ ] Check native test runners

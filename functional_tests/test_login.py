@@ -6,6 +6,20 @@ from .base import FunctionalTest
 
 class LoginTest(FunctionalTest):
 
+    def wait_to_be_logged_in(self):
+        self.wait_for_element_with_id(self.browser, 'id_logout')
+        navbar = self.find_element_by_css_selector_with_delay(
+            self.browser, '.navbar'
+        )
+        self.assertIn('edith@mockmyid.com', navbar.text)
+
+    def wait_to_be_logged_out(self):
+        self.wait_for_element_with_id(self.browser, 'id_login')
+        navbar = self.find_element_by_css_selector_with_delay(
+            self.browser, '.navbar'
+        )
+        self.assertNotIn('edith@mockmyid.com', navbar.text)
+
     def test_login_with_persona(self):
         # Edith goes to the awesome superlists site
         # and notices a "Sign in" link for the first time
@@ -25,8 +39,17 @@ class LoginTest(FunctionalTest):
         self.switch_to_new_window(self.browser, 'To-Do')
 
         # She can see that she is logged in
-        self.wait_for_element_with_id(self.browser, 'id_logout')
-        navbar = self.find_element_by_css_selector_with_delay(
-            self.browser, '.navbar'
-        )
-        self.assertIn('edith@mockmyid.com', navbar.text)
+        self.wait_to_be_logged_in()
+
+        # Refreshing the page, she sees it's a real session login,
+        # not just a one-off for that page
+        self.browser.refresh()
+        self.wait_to_be_logged_in()
+
+        # She clicks "logout"
+        self.browser.find_element_by_id('id_logout').click()
+        self.wait_to_be_logged_out()
+
+        # The "logged out" status also persists after refresh
+        self.browser.refresh()
+        self.wait_to_be_logged_out()

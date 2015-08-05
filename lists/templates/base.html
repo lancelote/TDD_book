@@ -14,7 +14,7 @@
         <nav class="navbar navbar-default" role="navigation">
             <a class="navbar-brand" href="/">Superlists</a>
             {% if user.email %}
-                <a class="btn navbar-btn navbar-right" id="id_logout" href="#">Log out</a>
+                <a class="btn navbar-btn navbar-right" id="id_logout" href="{% url 'accounts:logout' %}">Log out</a>
                 <span class="navbar-text navbar-right">Logged in as {{ user.email }}</span>
             {% else %}
                 <a class="btn navbar-btn navbar-right" id="id_login" href="#">Sign in</a>
@@ -45,8 +45,8 @@
     </div>
     <script src="{% static "js/jquery.js" %}"></script>
     <script src="{% static "js/persona.js" %}"></script>
-    <script src="{% static "list.js" %}"></script>
     <script src="{% static "accounts.js" %}"></script>
+    <script src="{% static "list.js" %}"></script>
     <script>
         /* global $, Superlists, navigator */
 
