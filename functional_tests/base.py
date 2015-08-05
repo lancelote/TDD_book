@@ -58,17 +58,6 @@ class FunctionalTest(StaticLiveServerTestCase):
             )
         )
 
-    # @staticmethod
-    # def wait_for_element_with_id(driver, element_id, delay=30):
-    #     WebDriverWait(driver, delay).until(
-    #         expected_conditions.presence_of_element_located(
-    #             (By.ID, element_id)
-    #         ),
-    #         'Could not find element with id: "%s". Page text was:\n %s' % (
-    #             element_id, driver.find_element_by_tag_name('body').text,
-    #         )
-    #     )
-
     def switch_to_new_window(self, driver, text_in_title):
         """
         Switch browser window
