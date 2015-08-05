@@ -10,6 +10,7 @@ env:
     - DB=sqlite DJANGO_VERSION=1.8.2
 
 install:
+  - pip install --upgrade pip
   - pip install -r requirements.txt
 
 before_script:
