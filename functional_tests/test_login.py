@@ -9,14 +9,14 @@ class LoginTest(FunctionalTest):
     def wait_to_be_logged_in(self):
         self.wait_for_element_with_id(self.browser, 'id_logout')
         navbar = self.find_element_by_css_selector_with_delay(
-            self.browser, '.navbar'
+            self.browser, '.navbar', delay=30
         )
         self.assertIn('edith@mockmyid.com', navbar.text)
 
     def wait_to_be_logged_out(self):
         self.wait_for_element_with_id(self.browser, 'id_login')
         navbar = self.find_element_by_css_selector_with_delay(
-            self.browser, '.navbar'
+            self.browser, '.navbar', delay=30
         )
         self.assertNotIn('edith@mockmyid.com', navbar.text)
 
