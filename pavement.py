@@ -2,7 +2,7 @@
 Paver tasks
 """
 
-from paver.tasks import consume_args, task, needs
+from paver.tasks import consume_args, task
 from paver.easy import call_task, sh
 
 
@@ -11,7 +11,7 @@ def unit():
     """
     Unit tests
     """
-    sh('python manage.py test lists')
+    sh('python manage.py test lists.tests accounts.tests')
 
 
 @task
@@ -20,7 +20,7 @@ def accept(args):
     """
     Acceptance tests
     """
-    sh('python manage.py test functional_tests {0}'.format(', '.join(args)))
+    sh('python manage.py test functional_tests %s' % (', '.join(args),))
 
 
 @task

@@ -6,6 +6,9 @@
 Views unit tests
 """
 
+from unittest.mock import patch
+
+from django.contrib.auth import get_user_model, SESSION_KEY
 from django.test import TestCase
 from django.utils.html import escape
 
@@ -16,6 +19,8 @@ from lists.forms import (
     ItemForm,
 )
 from lists.models import Item, List
+
+User = get_user_model()
 
 
 class HomePageTest(TestCase):
@@ -160,3 +165,40 @@ class NewListTest(TestCase):
         self.client.post('/lists/new', data={'text': ''})
         self.assertEqual(List.objects.count(), 0)
         self.assertEqual(Item.objects.count(), 0)
+
+
+class LoginViewTest(TestCase):
+
+    @patch('accounts.views.authenticate')
+    def test_calls_authenticate_with_assertion_from_post(
+            self, mock_authenticate
+    ):
+        mock_authenticate.return_value = None
+        self.client.post('/accounts/login', {'assertion': 'assert this'})
+        mock_authenticate.assert_called_once_with(assertion='assert this')
+
+    @patch('accounts.views.authenticate')
+    def test_returns_ok_if_user_found(self, mock_authenticate):
+        user = User.objects.create(email='a@b.com')
+        user.backend = ''
+        mock_authenticate.return_value = user
+        response = self.client.post('/accounts/login', {'assertion': 'a'})
+        self.assertEqual(response.content.decode(), 'OK')
+
+    @patch('accounts.views.authenticate')
+    def test_gets_logged_in_session_if_authenticate_returns_a_user(
+            self, mock_authenticate
+    ):
+        user = User.objects.create(email='a@b.com')
+        user.backend = ''
+        mock_authenticate.return_value = user
+        self.client.post('/accounts/login', {'assertion': 'a'})
+        self.assertEqual(self.client.session[SESSION_KEY], str(user.pk))
+
+    @patch('accounts.views.authenticate')
+    def test_does_not_get_logged_in_if_authenticate_returns_none(
+            self, mock_authenticate
+    ):
+        mock_authenticate.return_value = None
+        self.client.post('/accounts/login', {'assertion': 'a'})
+        self.assertNotIn(SESSION_KEY, self.client.session)
