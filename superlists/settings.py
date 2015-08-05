@@ -111,6 +111,6 @@ STATICFILES_DIRS = (
 
 # Authentication
 AUTH_USER_MODEL = 'accounts.User'
-AUTHENTICATION_BACKEND = (
+AUTHENTICATION_BACKENDS = (
     'accounts.authentication.PersonaAuthenticationBackend',
 )
