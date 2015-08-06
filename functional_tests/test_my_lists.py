@@ -3,11 +3,8 @@
 
 from django.conf import settings
 from django.contrib.auth import (
-    BACKEND_SESSION_KEY,
     get_user_model,
-    SESSION_KEY
 )
-from django.contrib.sessions.backends.db import SessionStore
 
 from .base import FunctionalTest
 from .server_tools import create_session_on_server
@@ -22,7 +19,7 @@ class MyListsTest(FunctionalTest):
 
     def create_pre_authenticated_session(self, email):
         if self.against_staging:
-            session_key = create_pre_authenticated_session(
+            session_key = create_session_on_server(
                 self.server_host, email
             )
         else:

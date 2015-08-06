@@ -49,8 +49,8 @@ def _update_settings(site_folder, site_name):
     )
     sed(
         settings_path,
-        'DOMAIN = "localhost"',
-        'DOMAIN = "%s"' % (site_name,)
+        "DOMAIN = 'localhost'",
+        "DOMAIN = '%s'" % (site_name,)
     )
     secret_key_file = site_folder + '/superlists/secret_key.py'
     if not exists(secret_key_file):
