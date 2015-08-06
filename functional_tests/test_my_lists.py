@@ -32,12 +32,12 @@ class MyListsTest(FunctionalTest):
             path='/',
         ))
 
-    # def test_logged_in_users_lists_are_saved_as_my_lists(self):
-    #     email = 'edith@mockmyid.com'
-    #     self.browser.get(self.server_url)
-    #     self.wait_to_be_logged_out(self.browser, email)
-    #
-    #     # Edith is a logged-in user
-    #     self.create_ore_authenticated_session(email)
-    #     self.browser.get(self.server_url)
-    #     self.wait_to_be_logged_in(self.browser, email)
+    def test_logged_in_users_lists_are_saved_as_my_lists(self):
+        email = 'edith@mockmyid.com'
+        self.browser.get(self.server_url)
+        self.wait_to_be_logged_out(email)
+
+        # Edith is a logged-in user
+        self.create_ore_authenticated_session(email)
+        self.browser.get(self.server_url)
+        self.wait_to_be_logged_in(email)

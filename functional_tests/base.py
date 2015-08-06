@@ -43,6 +43,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     def get_item_input_box(self):
         return self.browser.find_element_by_id('id_text')
 
+    # ToDo : refactor driver needed (see wait_for_element_with_id)
     @staticmethod
     def find_element_by_css_selector_with_delay(driver, selector, delay=5):
         """
@@ -58,6 +59,7 @@ class FunctionalTest(StaticLiveServerTestCase):
             )
         )
 
+    # ToDo : refactor driver needed (see wait_for_element_with_id)
     def switch_to_new_window(self, driver, text_in_title):
         """
         Switch browser window
@@ -72,21 +74,21 @@ class FunctionalTest(StaticLiveServerTestCase):
             time.sleep(0.5)
         self.fail('Could not find window!')
 
-    # @staticmethod
-    # def wait_for_element_with_id(driver, element_id):
-    #     WebDriverWait(driver, timeout=30).until(
-    #         lambda b: b.find_element_by_id(element_id),
-    #         'Could not find element with id {}. Page text was:\n{}'.format(
-    #             element_id, driver.find_element_by_tag_name('body').text
-    #         )
-    #     )
-    #
-    # def wait_to_be_logged_in(self, driver, email):
-    #     self.wait_for_element_with_id(driver, 'id_logout')
-    #     navbar = driver.find_element_by_css_selector('.navbar')
-    #     self.assertIn(email, navbar.text)
-    #
-    # def wait_to_be_logged_out(self, driver, email):
-    #     self.wait_for_element_with_id(driver, 'id_login')
-    #     navbar = driver.find_element_by_css_selector('.navbar')
-    #     self.assertNotIn(email, navbar.text)
+
+    def wait_for_element_with_id(self, element_id):
+        WebDriverWait(self.browser, timeout=30).until(
+            lambda b: b.find_element_by_id(element_id),
+            'Could not find element with id {}. Page text was:\n{}'.format(
+                element_id, self.browser.find_element_by_tag_name('body').text
+            )
+        )
+
+    def wait_to_be_logged_in(self, email):
+        self.wait_for_element_with_id('id_logout')
+        navbar = self.browser.find_element_by_css_selector('.navbar')
+        self.assertIn(email, navbar.text)
+
+    def wait_to_be_logged_out(self, email):
+        self.wait_for_element_with_id('id_login')
+        navbar = self.browser.find_element_by_css_selector('.navbar')
+        self.assertNotIn(email, navbar.text)
