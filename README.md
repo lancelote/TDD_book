@@ -11,6 +11,7 @@ instead.
 
 ## ToDo List
 
+- [ ] Hide error on click
 - [ ] Check native test runners
 - [ ] Staging version
 - [ ] Refactor Qunit test code

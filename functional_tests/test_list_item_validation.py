@@ -72,20 +72,3 @@ class ItemValidationTest(FunctionalTest):
             self.browser, '.has-error'
         )
         self.assertFalse(error.is_displayed())
-
-        # She sent a new item
-        self.get_item_input_box().send_keys('\n')
-
-        # And then try to enter none allowed item once again
-        self.get_item_input_box().send_keys('\n')
-        error = self.find_element_by_css_selector_with_delay(
-            self.browser, '.has-error'
-        )
-        self.assertTrue(error.is_displayed())
-
-        # She click in the input field and the error is gone
-        self.get_item_input_box().click()
-        error = self.find_element_by_css_selector_with_delay(
-            self.browser, '.has-error'
-        )
-        self.assertFalse(error.is_displayed())

@@ -24,11 +24,6 @@
         function setupModule() {
             var input = $('input');
 
-            // Hide error on input click
-            input.click(function () {
-                $('.has-error').hide();
-            });
-
             // Hide error on keypress
             input.on('keypress', function () {
                 $('.has-error').hide();
@@ -39,11 +34,6 @@
 
         test("Errors should be hidden on keypress", function () {
             $('input[name="text"]').trigger('keypress');
-            equal($('.has-error').is(':visible'), false);
-        });
-
-        test("Errors should be hidden on click", function () {
-            $('input[name="text"]').click();
             equal($('.has-error').is(':visible'), false);
         });
 
