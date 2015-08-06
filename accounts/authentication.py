@@ -1,4 +1,5 @@
 # pylint: disable=invalid-name, too-few-public-methods
+# pylint: disable=logging-format-interpolation
 
 """
 Authentication logic
