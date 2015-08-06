@@ -81,7 +81,6 @@ class FunctionalTest(StaticLiveServerTestCase):
             time.sleep(0.5)
         self.fail('Could not find window!')
 
-
     def wait_for_element_with_id(self, element_id):
         WebDriverWait(self.browser, timeout=30).until(
             lambda b: b.find_element_by_id(element_id),
@@ -99,5 +98,3 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.wait_for_element_with_id('id_login')
         navbar = self.browser.find_element_by_css_selector('.navbar')
         self.assertNotIn(email, navbar.text)
-
-
