@@ -1,8 +1,6 @@
 # pylint: disable=too-many-instance-attributes, invalid-name
 # pylint: disable=missing-docstring
 
-from selenium.webdriver.support.ui import WebDriverWait
-
 from .base import FunctionalTest
 
 TEST_EMAIL = 'edith@mockmyid.com'
