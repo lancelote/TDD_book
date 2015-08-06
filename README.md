@@ -11,13 +11,7 @@ instead.
 
 ## ToDo List
 
-- [ ] Hide error on click
-- [ ] Check native test runners
-- [ ] Staging version
-- [ ] Refactor Qunit test code
-- [ ] JavaScript style validation
-- [ ] HTML style validation
-- [ ] JavaScript tests automation
+- [ ] Staging version needed
 - [x] Hide error after user click inside field
 - [x] Remove duplication of validation logic in views
 - [x] Remove hardcoded URLs from views.py
