@@ -1,3 +1,5 @@
+# pylint: disable=invalid-name
+
 """
 Custom command to create a user session for functional tests
 """
@@ -13,17 +15,29 @@ User = get_user_model()
 
 
 class Command(BaseCommand):
+    """
+    Custom manage.py commands
+    """
 
     def add_arguments(self, parser):
+        """
+        Parse command arguments
+        """
         parser.add_argument('email')
 
     def handle(self, *args, **options):
+        """
+        Creates a new session and returns it's key to stdout
+        """
         email = options['email']
         session_key = create_pre_authenticated_session(email)
         self.stdout.write(session_key)
 
 
 def create_pre_authenticated_session(email):
+    """
+    Creates fixture-like session to pass by authentication system
+    """
     user = User.objects.create(email=email)
     session = SessionStore()
     session[SESSION_KEY] = user.pk
