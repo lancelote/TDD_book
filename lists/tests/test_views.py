@@ -9,6 +9,7 @@ Views unit tests
 from unittest.mock import patch
 
 from django.contrib.auth import get_user_model, SESSION_KEY
+from django.http import HttpRequest
 from django.test import TestCase
 from django.utils.html import escape
 
@@ -19,6 +20,7 @@ from lists.forms import (
     ItemForm,
 )
 from lists.models import Item, List
+from lists.views import new_list
 
 User = get_user_model()
 
@@ -166,6 +168,14 @@ class NewListTest(TestCase):
         self.assertEqual(List.objects.count(), 0)
         self.assertEqual(Item.objects.count(), 0)
 
+    def test_list_owner_is_saved_if_user_is_authenticated(self):
+        request = HttpRequest()
+        request.user = User.objects.create(email='a@b.com')
+        request.POST['text'] = 'new list item'
+        new_list(request)
+        lst = List.objects.first()
+        self.assertEqual(lst.owner, request.user)
+
 
 class LoginViewTest(TestCase):
 
@@ -202,3 +212,17 @@ class LoginViewTest(TestCase):
         mock_authenticate.return_value = None
         self.client.post('/accounts/login', {'assertion': 'a'})
         self.assertNotIn(SESSION_KEY, self.client.session)
+
+
+class MyListsTest(TestCase):
+
+    def test_my_lists_url_renders_my_lists_template(self):
+        User.objects.create(email='a@b.com')
+        response = self.client.get('/lists/users/a@b.com/')
+        self.assertTemplateUsed(response, 'my_lists.html')
+
+    def test_passes_correct_owner_to_template(self):
+        User.objects.create(email='wrong@owner.com')
+        correct_user = User.objects.create(email='a@b.com')
+        response = self.client.get('/lists/users/a@b.com/')
+        self.assertEqual(response.context['owner'], correct_user)

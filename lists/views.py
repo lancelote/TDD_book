@@ -2,10 +2,13 @@
 App views
 """
 
+from django.contrib.auth import get_user_model
 from django.shortcuts import redirect, render
 
 from lists.forms import ExistingListItemForm, ItemForm
 from lists.models import List
+
+User = get_user_model()
 
 
 def homepage(request):
@@ -35,8 +38,15 @@ def new_list(request):
     """
     form = ItemForm(data=request.POST)
     if form.is_valid():
-        lst = List.objects.create()
+        lst = List()
+        lst.owner = request.user
+        lst.save()
         form.save(for_list=lst)
         return redirect(lst)
     else:
         return render(request, 'home.html', {'form': form})
+
+
+def my_lists(request, email):
+    owner = User.objects.get(email=email)
+    return render(request, 'my_lists.html', {'owner': owner})
