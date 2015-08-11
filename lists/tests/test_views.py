@@ -6,7 +6,8 @@
 Views unit tests
 """
 
-from unittest.mock import patch
+import unittest
+from unittest.mock import Mock, patch
 
 from django.contrib.auth import get_user_model, SESSION_KEY
 from django.http import HttpRequest
@@ -129,7 +130,7 @@ class ListViewTest(TestCase):
         self.assertEqual(Item.objects.all().count(), 1)
 
 
-class NewListTest(TestCase):
+class NewListViewIntegratedTest(TestCase):
 
     def test_saving_a_POST_request(self):
         self.client.post(
@@ -146,9 +147,9 @@ class NewListTest(TestCase):
             '/lists/new',
             data={'text': 'A new list item'}
         )
-        new_list = List.objects.first()
+        new_lst = List.objects.first()
 
-        self.assertRedirects(response, '/lists/{0}/'.format(new_list.id))
+        self.assertRedirects(response, '/lists/{0}/'.format(new_lst.id))
 
     def test_for_invalid_input_renders_home_template(self):
         response = self.client.post('/lists/new', data={'text': ''})
@@ -175,6 +176,68 @@ class NewListTest(TestCase):
         new_list(request)
         lst = List.objects.first()
         self.assertEqual(lst.owner, request.user)
+
+
+@patch('lists.views.NewListForm')
+class NewListViewUnitTest(unittest.TestCase):
+
+    def setUp(self):
+        self.request = HttpRequest()
+        self.request.POST['text'] = 'new list item'
+        self.request.user = Mock()
+
+    def test_passes_post_data_to_NewListForm(self, mock_new_list_form):
+        new_list(self.request)
+        mock_new_list_form.assert_called_once_with(data=self.request.POST)
+
+    def test_saves_form_with_owner_if_form_is_valid(self, mock_new_list_form):
+        mock_form = mock_new_list_form.return_value
+        mock_form.is_valid.return_value = True
+        new_list(self.request)
+        mock_form.save.assert_called_once_with(owner=self.request.user)
+
+    @patch('lists.views.redirect')
+    def test_redirects_to_form_returned_object_if_form_valid(
+        self, mock_redirect, mock_new_list_form
+    ):
+        mock_form = mock_new_list_form.return_value
+        mock_form.is_valid.return_value = True
+
+        response = new_list(self.request)
+
+        self.assertEqual(response, mock_redirect.return_value)
+        mock_redirect.assert_called_once_with(mock_form.save.return_value)
+
+    @patch('lists.views.render')
+    def test_renders_homepage_if_form_invalid(
+        self, mock_render, mock_new_list_form
+    ):
+        mock_form = mock_new_list_form.return_value
+        mock_form.is_valid.return_value = False
+
+        response = new_list(self.request)
+
+        self.assertEqual(response, mock_render.return_value)
+        mock_render.assert_called_once_with(
+            self.request, 'home.html', {'form': mock_form}
+        )
+
+    def test_does_not_save_if_form_invalid(self, mock_new_list_form):
+        mock_form = mock_new_list_form.return_value
+        mock_form.is_valid.return_value = False
+        new_list(self.request)
+        self.assertFalse(mock_form.save.called)
+
+    @patch('lists.views.redirect')
+    def test_redirects_to_form_returned_object_if_form_valid(
+        self, mock_redirect, mock_new_list_form
+    ):
+        mock_form = mock_new_list_form.return_value
+        mock_form.is_valid.return_value = True
+
+        response = new_list(self.request)
+        self.assertEqual(response, mock_redirect.return_value)
+        mock_redirect.assert_called_once_with(mock_form.save.return_value)
 
 
 class LoginViewTest(TestCase):

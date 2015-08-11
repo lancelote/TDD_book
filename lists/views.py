@@ -1,11 +1,11 @@
 """
-App views
+Lists views
 """
 
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect, render
 
-from lists.forms import ExistingListItemForm, ItemForm
+from lists.forms import ExistingListItemForm, ItemForm, NewListForm
 from lists.models import List
 
 User = get_user_model()
@@ -33,18 +33,11 @@ def view_list(request, list_id):
 
 
 def new_list(request):
-    """
-    Adds new list
-    """
-    form = ItemForm(data=request.POST)
+    form = NewListForm(data=request.POST)
     if form.is_valid():
-        lst = List()
-        lst.owner = request.user
-        lst.save()
-        form.save(for_list=lst)
+        lst = form.save(owner=request.user)
         return redirect(lst)
-    else:
-        return render(request, 'home.html', {'form': form})
+    return render(request, 'home.html', {'form': form})
 
 
 def my_lists(request, email):
