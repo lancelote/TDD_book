@@ -13,3 +13,7 @@ disable=I0011, I0013
 [REPORTS]
 # Simplify pylint reports
 reports=no
+
+[SIMILARITIES]
+# Ignore imports when computing similarities.
+ignore-imports=yes

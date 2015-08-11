@@ -1,3 +1,5 @@
+# pylint: disable=invalid-name
+
 """
 Lists views
 """
@@ -33,6 +35,9 @@ def view_list(request, list_id):
 
 
 def new_list(request):
+    """
+    Creates a new list
+    """
     form = NewListForm(data=request.POST)
     if form.is_valid():
         lst = form.save(owner=request.user)
@@ -41,5 +46,8 @@ def new_list(request):
 
 
 def my_lists(request, email):
+    """
+    Render page with all user lists
+    """
     owner = User.objects.get(email=email)
     return render(request, 'my_lists.html', {'owner': owner})

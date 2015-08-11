@@ -18,6 +18,9 @@ class List(models.Model):
 
     @property
     def name(self):
+        """
+        Name for list to show at the user lists page
+        """
         return self.item_set.first().text
 
     def get_absolute_url(self):
@@ -28,6 +31,9 @@ class List(models.Model):
 
     @staticmethod
     def create_new(first_item_text, owner=None):
+        """
+        Helper method for creating new lists
+        """
         lst = List.objects.create(owner=owner)
         Item.objects.create(text=first_item_text, list=lst)
         return lst

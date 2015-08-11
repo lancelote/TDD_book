@@ -58,11 +58,12 @@ class ExistingListItemFormTest(TestCase):
 
 class NewListFromTest(unittest.TestCase):
 
+    @staticmethod
     @patch('lists.forms.List.create_new')
     def test_save_creates_new_list_from_post_data_if_user_not_authenticated(
-        self, mock_list_create_new
+            mock_list_create_new
     ):
-        user = Mock(is_authenticated=lambda : False)
+        user = Mock(is_authenticated=lambda: False)
         form = NewListForm(data={'text': 'new item text'})
         form.is_valid()
         form.save(owner=user)
@@ -70,11 +71,12 @@ class NewListFromTest(unittest.TestCase):
             first_item_text='new item text'
         )
 
+    @staticmethod
     @patch('lists.forms.List.create_new')
     def test_creates_new_list_with_owner_if_user_authenticated(
-        self, mock_list_create_new
+            mock_list_create_new
     ):
-        user = Mock(is_authenticated=lambda : True)
+        user = Mock(is_authenticated=lambda: True)
         form = NewListForm(data={'text': 'new item text'})
         form.is_valid()
         form.save(owner=user)
@@ -84,7 +86,7 @@ class NewListFromTest(unittest.TestCase):
 
     @patch('lists.forms.List.create_new')
     def test_save_returns_new_list_object(self, mock_list_create_new):
-        user = Mock(is_authenticated=lambda : True)
+        user = Mock(is_authenticated=lambda: True)
         form = NewListForm(data={'text': 'new item text'})
         form.is_valid()
         response = form.save(owner=user)

@@ -36,6 +36,9 @@ class ItemForm(forms.models.ModelForm):
 
 
 class NewListForm(ItemForm):
+    """
+    Creates a new list
+    """
 
     def save(self, owner):
         if owner.is_authenticated():

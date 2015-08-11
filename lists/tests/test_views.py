@@ -196,21 +196,9 @@ class NewListViewUnitTest(unittest.TestCase):
         new_list(self.request)
         mock_form.save.assert_called_once_with(owner=self.request.user)
 
-    @patch('lists.views.redirect')
-    def test_redirects_to_form_returned_object_if_form_valid(
-        self, mock_redirect, mock_new_list_form
-    ):
-        mock_form = mock_new_list_form.return_value
-        mock_form.is_valid.return_value = True
-
-        response = new_list(self.request)
-
-        self.assertEqual(response, mock_redirect.return_value)
-        mock_redirect.assert_called_once_with(mock_form.save.return_value)
-
     @patch('lists.views.render')
     def test_renders_homepage_if_form_invalid(
-        self, mock_render, mock_new_list_form
+            self, mock_render, mock_new_list_form
     ):
         mock_form = mock_new_list_form.return_value
         mock_form.is_valid.return_value = False
@@ -230,7 +218,7 @@ class NewListViewUnitTest(unittest.TestCase):
 
     @patch('lists.views.redirect')
     def test_redirects_to_form_returned_object_if_form_valid(
-        self, mock_redirect, mock_new_list_form
+            self, mock_redirect, mock_new_list_form
     ):
         mock_form = mock_new_list_form.return_value
         mock_form.is_valid.return_value = True

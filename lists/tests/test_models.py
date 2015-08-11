@@ -92,7 +92,8 @@ class ListModelTest(TestCase):
         except TypeError:
             self.fail('Cannot asign an owner to a list!')
 
-    def test_list_owner_is_optional(self):
+    @staticmethod
+    def test_list_owner_is_optional():
         List().full_clean()
 
     def test_create_returns_new_list_object(self):
