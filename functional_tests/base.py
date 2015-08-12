@@ -103,7 +103,8 @@ class FunctionalTest(StaticLiveServerTestCase):
         navbar = self.browser.find_element_by_css_selector('.navbar')
         self.assertNotIn(email, navbar.text)
 
-    def wait_for(self, function_with_assertion, timeout=DEFAULT_WAIT):
+    @staticmethod
+    def wait_for(function_with_assertion, timeout=DEFAULT_WAIT):
         start_time = time.time()
         while time.time() - start_time < timeout:
             try:
