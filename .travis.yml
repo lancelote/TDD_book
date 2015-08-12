@@ -12,6 +12,10 @@ env:
 install:
   - pip install --upgrade pip
   - pip install -r requirements.txt
+  - pip install nodejs
+  - pip install npm
+  - pip install phantomjs
+  - npm install qunit-phantomjs-runner
 
 before_script:
   - export DISPLAY=:99.0
@@ -22,4 +26,6 @@ before_script:
   - python manage.py runserver &
   - sleep 3
 
-script: paver
+script:
+  - paver
+  - ls
