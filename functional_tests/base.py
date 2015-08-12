@@ -7,11 +7,14 @@ import time
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 
 from .server_tools import reset_database
+
+DEFAULT_WAIT = 5
 
 
 class FunctionalTest(StaticLiveServerTestCase):
@@ -37,7 +40,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         if self.against_staging:
             reset_database(self.server_host)
         self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(5)
+        self.browser.implicitly_wait(DEFAULT_WAIT)
 
     def tearDown(self):
         self.browser.quit()
@@ -90,12 +93,21 @@ class FunctionalTest(StaticLiveServerTestCase):
             )
         )
 
-    def wait_to_be_logged_in(self, driver, email):
-        self.wait_for_element_with_id(driver, 'id_logout')
-        navbar = driver.find_element_by_css_selector('.navbar')
+    def wait_to_be_logged_in(self, email):
+        self.wait_for_element_with_id(self.browser, 'id_logout')
+        navbar = self.browser.find_element_by_css_selector('.navbar')
         self.assertIn(email, navbar.text)
 
-    def wait_to_be_logged_out(self, driver, email):
-        self.wait_for_element_with_id(driver, 'id_login')
-        navbar = driver.find_element_by_css_selector('.navbar')
+    def wait_to_be_logged_out(self, email):
+        self.wait_for_element_with_id(self.browser, 'id_login')
+        navbar = self.browser.find_element_by_css_selector('.navbar')
         self.assertNotIn(email, navbar.text)
+
+    def wait_for(self, function_with_assertion, timeout=DEFAULT_WAIT):
+        start_time = time.time()
+        while time.time() - start_time < timeout:
+            try:
+                return function_with_assertion()
+            except (AssertionError, WebDriverException):
+                time.sleep(0.1)
+        return function_with_assertion()
