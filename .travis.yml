@@ -28,4 +28,5 @@ before_script:
 
 script:
   - paver
-  - ls
+  - phantomjs node_modules/qunit-phantomjs-runner/runner.js lists/static/tests/tests.html
+  - phantomjs node_modules/quint-phantomjs-runner/runner.js accounts/static/tests/tests.htnl
