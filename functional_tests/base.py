@@ -14,7 +14,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from .server_tools import reset_database
 
-DEFAULT_WAIT = 5
+DEFAULT_WAIT = 10
 
 
 class FunctionalTest(StaticLiveServerTestCase):
