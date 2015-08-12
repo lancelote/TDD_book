@@ -12,9 +12,9 @@ env:
 install:
   - pip install --upgrade pip
   - pip install -r requirements.txt
-  - pip install nodejs
-  - pip install npm
-  - pip install phantomjs
+  - sudo apt-get install nodejs
+  - sudo apt-get install npm
+  - sudo apt-get install phantomjs
   - npm install qunit-phantomjs-runner
 
 before_script:
