@@ -105,6 +105,9 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     @staticmethod
     def wait_for(function_with_assertion, timeout=DEFAULT_WAIT):
+        """
+        CI helper method to prevent Selenium from false failures
+        """
         start_time = time.time()
         while time.time() - start_time < timeout:
             try:
