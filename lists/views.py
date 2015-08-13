@@ -51,3 +51,12 @@ def my_lists(request, email):
     """
     owner = User.objects.get(email=email)
     return render(request, 'my_lists.html', {'owner': owner})
+
+
+def share(request, list_id):
+    """
+    Add new 'Shared with' user to the given list
+    """
+    lst = List.objects.get(id=list_id)
+    lst.shared_with.add(request.POST['email'])
+    return redirect(lst)
