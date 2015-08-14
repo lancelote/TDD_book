@@ -11,6 +11,7 @@ instead.
 
 ## ToDo List
 
+- [ ] Migrate all views to OOP style
 - [ ] Staging version needed
 - [x] Hide error after user click inside field
 - [x] Remove duplication of validation logic in views
