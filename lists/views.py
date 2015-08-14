@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name, too-many-ancestors
 
 """
 Lists views
@@ -6,7 +6,7 @@ Lists views
 
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect, render
-from django.views.generic import FormView, CreateView
+from django.views.generic import FormView
 
 from lists.forms import ExistingListItemForm, ItemForm, NewListForm
 from lists.models import List

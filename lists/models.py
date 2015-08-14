@@ -60,4 +60,7 @@ class Item(models.Model):
         return self.text
 
     def ge_absolute_url(self):
+        """
+        Return absolute url to the parent list
+        """
         return reverse('view_list', args=[self.list.id])
