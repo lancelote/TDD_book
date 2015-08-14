@@ -18,7 +18,7 @@ from .management.commands.create_session import (
     create_pre_authenticated_session
 )
 
-DEFAULT_WAIT = 10
+DEFAULT_WAIT = 30
 
 
 class FunctionalTest(StaticLiveServerTestCase):
@@ -90,7 +90,7 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     @staticmethod
     def wait_for_element_with_id(driver, element_id):
-        WebDriverWait(driver, timeout=30).until(
+        WebDriverWait(driver, timeout=60).until(
             lambda b: b.find_element_by_id(element_id),
             'Could not find element with id {}. Page text was:\n{}'.format(
                 element_id, driver.find_element_by_tag_name('body').text
