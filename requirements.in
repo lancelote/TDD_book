@@ -1,0 +1,9 @@
+# Project requirements
+
+Django
+Fabric
+gunicorn
+Paver
+pylint
+requests
+selenium
